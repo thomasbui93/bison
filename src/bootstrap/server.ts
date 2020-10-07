@@ -2,13 +2,14 @@ import express, { Express } from 'express'
 import * as bodyParser from 'body-parser'
 import cors from 'cors'
 import compression from 'compression'
+import routes from '../api'
 
 export function afterStartup(port: any) {
   console.log(`The application has started on port: ${port}`)
 }
 
 export default function setupServer(postStartup: (port: any) => void) {
-  const app = express()
+  const app: Express = express()
   app.use(bodyParser.urlencoded({
     extended: true
   }))
@@ -17,6 +18,7 @@ export default function setupServer(postStartup: (port: any) => void) {
   app.use(compression({
     level: 9
   }))
+  routes(app)
   const port = process.env.PORT || 3000
 
   app.listen(port, () => {

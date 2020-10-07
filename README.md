@@ -1,2 +1,2 @@
-# Bison
-Bison guard - Centralized authentication service.
+# Bison Guard
+Bison guard - authentication service.

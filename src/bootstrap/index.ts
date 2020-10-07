@@ -1,7 +1,7 @@
-import setupConfig from "./config";
+import getSequelize from "./sequelize";
 import setupServer, { afterStartup } from "./server";
 
 export default function bootstrap() {
-  setupConfig()
+  getSequelize()
   setupServer(afterStartup)
 }

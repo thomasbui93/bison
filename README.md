@@ -1,2 +1,2 @@
-# Otter
-Otter personalized bot.
+# Bison
+Bison guard - Centralized authentication service.

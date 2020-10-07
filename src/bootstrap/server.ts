@@ -3,9 +3,11 @@ import * as bodyParser from 'body-parser'
 import cors from 'cors'
 import compression from 'compression'
 import routes from '../api'
+import dataSync from './data_sync'
 
 export function afterStartup(port: any) {
   console.log(`The application has started on port: ${port}`)
+  dataSync()
 }
 
 export default function setupServer(postStartup: (port: any) => void) {

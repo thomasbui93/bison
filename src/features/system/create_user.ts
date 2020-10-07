@@ -10,9 +10,9 @@ export default async function createUser(name: string) {
       expiry: nextExpiry(),
       isActive: true,
     })
-    return user
+    return user.toJSON()
   } catch (err) {
-    throw new SystemUserCreateException(err.getMessage())
+    throw new SystemUserCreateException(err)
   }
 }
 

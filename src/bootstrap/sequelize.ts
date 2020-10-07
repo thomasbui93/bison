@@ -1,6 +1,6 @@
 import setupConfig from "./config"
 import { Sequelize as SequelizeType } from "sequelize/types"
-const { Sequelize } = require('sequelize')
+import { Sequelize } from 'sequelize'
 let sequelize: SequelizeType = null
 
 export default function getSequelize(): SequelizeType {

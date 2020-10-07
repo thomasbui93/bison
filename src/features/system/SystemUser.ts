@@ -1,4 +1,4 @@
-const { DataTypes } = require('sequelize')
+import { DataTypes } from 'sequelize'
 import getSequelize from '../../bootstrap/sequelize'
 
 const SystemUser = getSequelize().define('SystemUser', {
@@ -20,7 +20,13 @@ const SystemUser = getSequelize().define('SystemUser', {
   }
 }, {
   tableName: 'system_users',
-  timestamps: false
+  timestamps: false,
+  indexes: [
+    {
+      unique: true,
+      fields: ['name']
+    }
+  ]
 })
 
 export default SystemUser

@@ -5,7 +5,7 @@ import createUser from "../../features/system/create_user"
 const router = Router()
 
 router.post('/', async (req: Request, res: Response, next: NextFunction) => {
-  const user = createUser(req.body.name)
+  const user = await createUser(req.body.name)
   try {
     res.json(user)
   } catch (err) {
@@ -14,7 +14,7 @@ router.post('/', async (req: Request, res: Response, next: NextFunction) => {
 })
 
 router.post('/verify', async (req: Request, res: Response, next: NextFunction) => {
-  const token = authenticate({
+  const token = await authenticate({
     name: req.body.name,
     token: req.body.token,
   })

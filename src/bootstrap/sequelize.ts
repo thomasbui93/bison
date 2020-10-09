@@ -1,5 +1,5 @@
-import setupConfig from "./config"
-import { Sequelize as SequelizeType } from "sequelize/types"
+import setupConfig from './config'
+import { Sequelize as SequelizeType } from 'sequelize/types'
 import { Sequelize } from 'sequelize'
 let sequelize: SequelizeType = null
 

@@ -1,15 +1,17 @@
-import SystemUserRemovalException from "../../exceptions/features/system/SystemUserRemovalException"
-import SystemUser from "./SystemUser"
+import SystemUserRemovalException from '../../exceptions/features/system/SystemUserRemovalException'
+import SystemUser from './SystemUser'
 
 export default async function removeUser(name: string) {
   try {
-    await SystemUser.update({ isActive: false }, {
+    const [userCount] = await SystemUser.update({ isActive: false }, {
       where: {
         name
       }
     })
-    return true
+    if (userCount < 1) {
+      throw new SystemUserRemovalException('Invalid user.')
+    }
   } catch (err) {
-    throw new SystemUserRemovalException(err.getMessage())
+    throw new SystemUserRemovalException(err.message)
   }
 }

@@ -1,6 +1,6 @@
-import dataSync from "./data_sync";
-import getSequelize from "./sequelize";
-import setupServer, { afterStartup } from "./server";
+import dataSync from './data_sync';
+import getSequelize from './sequelize';
+import setupServer, { afterStartup } from './server';
 
 export default async function bootstrap() {
   getSequelize()

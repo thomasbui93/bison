@@ -1,7 +1,7 @@
-import { NextFunction, Request, Response, Router } from "express"
-import removeUser from "../../features/system/remove_user"
-import authenticate from "../../features/system/authenticate"
-import createUser from "../../features/system/create_user"
+import { NextFunction, Request, Response, Router } from 'express'
+import removeUser from '../../features/system/remove_user'
+import authenticate from '../../features/system/authenticate'
+import createUser from '../../features/system/create_user'
 import { body, validationResult } from 'express-validator'
 
 const router = Router()

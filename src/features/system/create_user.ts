@@ -1,6 +1,6 @@
-import SystemUserCreateException from "../../exceptions/features/system/SystemUserCreationException";
-import { v4 as uuidv4} from "uuid";
-import SystemUser from "./SystemUser";
+import SystemUserCreateException from '../../exceptions/features/system/SystemUserCreationException';
+import { v4 as uuidv4} from 'uuid';
+import SystemUser from './SystemUser';
 
 export default async function createUser(name: string) {
   try {

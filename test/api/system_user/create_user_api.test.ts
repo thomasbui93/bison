@@ -1,6 +1,6 @@
 import request from 'supertest'
-import dataSync from '../../src/bootstrap/data_sync'
-import setupServer from '../../src/bootstrap/server'
+import dataSync from '../../../src/bootstrap/data_sync'
+import setupServer from '../../../src/bootstrap/server'
 
 describe('create system user', () => {
   beforeAll(async () => {
@@ -43,6 +43,6 @@ describe('create system user', () => {
     .send({
       name: 'bison'
     })
-    expect(resDup.status).toEqual(500)
+    expect(resDup.status).toEqual(400)
   })
 })

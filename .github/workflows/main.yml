@@ -17,14 +17,16 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-      run: npm install
-      run: npm run build --if-present
-      run: cp .env.example .env
-      run: npm test
+    - run: npm install
+    - run: npm run build --if-present
+    - run: cp .env.example .env
+    - run: npm test
       env:
         CI: true
-      run: npm run lint
+    - run: npm run lint
 
-    - name: Jest Code Coverage Report
-      uses: ziishaned/jest-reporter-action@0.1.1
+    - uses: ziishaned/jest-reporter-action@v0.0.1
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        test-command: "npm jest --coverage"
   

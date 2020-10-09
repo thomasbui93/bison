@@ -1,8 +1,13 @@
-import SystemUser from "../features/system/SystemUser";
+import dataSync from "./data_sync";
 import getSequelize from "./sequelize";
 import setupServer, { afterStartup } from "./server";
 
-export default function bootstrap() {
+export default async function bootstrap() {
   getSequelize()
-  setupServer(afterStartup)
+  await dataSync()
+  const app = setupServer()
+  const port = process.env.PORT || 3000
+  app.listen(port, () => {
+    afterStartup(port)
+  })
 }

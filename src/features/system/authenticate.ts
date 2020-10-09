@@ -12,9 +12,12 @@ export default async function authenticate(payload: SystemAuthenticationPayload)
         ...payload,
         isActive: true,
         expiry: {
-          [Op.gt]: nextExpiry()
+          [Op.lt]: new Date()
         }
       }
+    })
+    await token.update({
+      expiry: nextExpiry()
     })
     return token
   } catch (err) {

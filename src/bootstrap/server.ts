@@ -3,14 +3,13 @@ import * as bodyParser from 'body-parser'
 import cors from 'cors'
 import compression from 'compression'
 import routes from '../api'
-import dataSync from './data_sync'
+import exceptionInterceptor from '../middleware/exception_interceptor'
 
 export function afterStartup(port: any) {
   console.log(`The application has started on port: ${port}`)
-  dataSync()
 }
 
-export default function setupServer(postStartup: (port: any) => void) {
+export default function setupServer() {
   const app: Express = express()
   app.use(bodyParser.urlencoded({
     extended: true
@@ -21,9 +20,7 @@ export default function setupServer(postStartup: (port: any) => void) {
     level: 9
   }))
   routes(app)
-  const port = process.env.PORT || 3000
+  app.use(exceptionInterceptor)
 
-  app.listen(port, () => {
-    postStartup(port)
-  })
+  return app
 }

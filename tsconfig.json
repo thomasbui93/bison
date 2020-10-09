@@ -2,15 +2,12 @@
   "compilerOptions": {
     "module": "commonjs",
     "esModuleInterop": true,
-    "target": "es6",
+    "target": "es2019",
     "noImplicitAny": true,
     "moduleResolution": "node",
     "sourceMap": true,
     "outDir": "dist",
     "baseUrl": "src",
-    "types": [
-      "reflect-metadata"
-    ],
     "paths": {
       "*": [
         "node_modules/*",

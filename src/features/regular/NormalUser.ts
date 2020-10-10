@@ -22,7 +22,14 @@ const NormalUser = getSequelize().define('NormalUser', {
       unique: true,
       fields: ['email']
     }
-  ]
+  ],
 })
+
+NormalUser.prototype.toJSON = function () {
+  const values = Object.assign({}, this.get())
+
+  delete values.password
+  return values
+}
 
 export default NormalUser

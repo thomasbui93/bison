@@ -3,7 +3,7 @@ import NormalUserAuthenticationFailed from '../../exceptions/features/regular/No
 import NormalUser from './NormalUser';
 import { createToken, isValidToken } from './token';
 
-export async function passwordCheck(email: string, password: string) {
+export async function passwordCheck(email: string, password: string): Promise<string> {
   try {
     const user = await NormalUser.findOne({
       where: {
@@ -23,7 +23,7 @@ export async function passwordCheck(email: string, password: string) {
 }
 
 
-export async function tokenCheck(token: string) {
+export async function tokenCheck(token: string): Promise<boolean> {
   try {
     const isValid = await isValidToken(token)
 

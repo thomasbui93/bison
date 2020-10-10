@@ -5,7 +5,9 @@ const getStatus = (err: Error): number => {
     case 'SystemUserCreateException':
     case 'SystemUserRemovalException':
       return 400
-    case 'SystemUserAuthenticationFailed': 
+    case 'SystemUserAuthenticationFailed':
+    case 'NormalUserAuthenticationFailed':
+    case 'TokenAuthenticationException': 
       return 401
     default:
       return 500

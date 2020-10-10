@@ -1,6 +1,7 @@
 import request from 'supertest'
 import dataSync from '../../../src/bootstrap/data_sync'
 import setupServer from '../../../src/bootstrap/server'
+const secret = 12345
 
 describe('create system user', () => {
   beforeAll(async () => {
@@ -11,6 +12,9 @@ describe('create system user', () => {
     const app = setupServer()
     const res = await request(app)
       .post('/api/system-user')
+      .set({
+        secret 
+      })
       .send({
         name: 'bison_app'
       })
@@ -24,6 +28,9 @@ describe('create system user', () => {
     const app = setupServer()
     const res = await request(app)
       .post('/api/system-user')
+      .set({
+        secret 
+      })
       .send({
         name: ''
       })
@@ -34,12 +41,18 @@ describe('create system user', () => {
     const app = setupServer()
     const res = await request(app)
       .post('/api/system-user')
+      .set({
+        secret 
+      })
       .send({
         name: 'bison'
       })
     expect(res.status).toEqual(201)
     const resDup = await request(app)
     .post('/api/system-user')
+    .set({
+      secret 
+    })
     .send({
       name: 'bison'
     })

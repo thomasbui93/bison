@@ -7,7 +7,8 @@ const getStatus = (err: Error): number => {
       return 400
     case 'SystemUserAuthenticationFailed':
     case 'NormalUserAuthenticationFailed':
-    case 'TokenAuthenticationException': 
+    case 'TokenAuthenticationException':
+    case 'AdminAuthenticationFailure':
       return 401
     default:
       return 500

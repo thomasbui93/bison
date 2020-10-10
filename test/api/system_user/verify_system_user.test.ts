@@ -3,6 +3,8 @@ import dataSync from '../../../src/bootstrap/data_sync'
 import setupServer from '../../../src/bootstrap/server'
 import SystemUser from '../../../src/features/system/SystemUser'
 
+const secret = 12345
+
 describe('verify user and token', () => {
   beforeAll(async () => {
     await dataSync()
@@ -13,12 +15,18 @@ describe('verify user and token', () => {
       const app = setupServer()
       const res = await request(app)
         .post('/api/system-user')
+        .set({
+          secret 
+        })
         .send({
           name: 'bison-2'
         })
       const { name, token } = res.body
       const authentication = await request(app)
       .post('/api/system-user/verify')
+      .set({
+        secret 
+      })
       .send({
         name,
         token
@@ -32,6 +40,9 @@ describe('verify user and token', () => {
       const app = setupServer()
       const res = await request(app)
         .post('/api/system-user')
+        .set({
+          secret 
+        })
         .send({
           name: 'bison-3'
         })
@@ -46,6 +57,9 @@ describe('verify user and token', () => {
       })
       const authentication = await request(app)
       .post('/api/system-user/verify')
+      .set({
+        secret 
+      })
       .send({
         name,
         token
@@ -57,6 +71,9 @@ describe('verify user and token', () => {
       const app = setupServer()
       const authentication = await request(app)
       .post('/api/system-user/verify')
+      .set({
+        secret 
+      })
       .send({
         name: 'xyz',
         token: 'xxx'

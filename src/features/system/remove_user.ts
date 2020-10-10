@@ -1,7 +1,7 @@
 import SystemUserRemovalException from '../../exceptions/features/system/SystemUserRemovalException'
 import SystemUser from './SystemUser'
 
-export default async function removeUser(name: string) {
+export default async function removeUser(name: string): Promise<void> {
   try {
     const [userCount] = await SystemUser.update({ isActive: false }, {
       where: {

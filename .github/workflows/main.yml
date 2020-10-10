@@ -17,6 +17,11 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+    - name: Start Redis v5
+      uses: superchargejs/redis-github-action@1.1.0
+      with:
+        redis-version: 5
+
     - run: npm install
     - run: npm run build --if-present
     - run: cp .env.example .env

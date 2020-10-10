@@ -4,6 +4,7 @@ const getStatus = (err: Error): number => {
   switch (err.name) {
     case 'SystemUserCreateException':
     case 'SystemUserRemovalException':
+    case 'SystemUserSearchFailed':
       return 400
     case 'SystemUserAuthenticationFailed':
     case 'NormalUserAuthenticationFailed':

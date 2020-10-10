@@ -85,5 +85,16 @@ describe('create system user', () => {
       expect(res.body).toHaveProperty('page')
       expect(res.body).toHaveProperty('size')
     })
+
+    it('should fetch a system users with string type parameters', async () => {
+      const app = setupServer()
+      const res = await request(app)
+        .get('/api/system-user?page=x&size=y')
+        .set({
+          secret 
+        })
+        .send()
+      expect(res.status).toEqual(400)
+    })
   })
 })

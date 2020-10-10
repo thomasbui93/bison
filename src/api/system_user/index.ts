@@ -55,7 +55,9 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
     if (!page) page = 1
     if (!size) size = 10
 
-    const users = await getSystemUsers(parseInt(page) || 1, parseInt(size) || 10)
+    if (isNaN(parseInt(page)) || isNaN(parseInt(size))) throw new SystemUserSearchFailed('Invalid search params.')
+
+    const users = await getSystemUsers(parseInt(page), parseInt(size))
     res.json({
       users,
       page,

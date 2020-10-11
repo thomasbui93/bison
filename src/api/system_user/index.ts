@@ -2,21 +2,19 @@ import { NextFunction, Request, Response, Router } from 'express'
 import removeUser from '../../features/system/remove_user'
 import authenticate from '../../features/system/authenticate'
 import createUser from '../../features/system/create_user'
-import { body, validationResult } from 'express-validator'
+import { body } from 'express-validator'
 import getSystemUsers from '../../features/system/find_users'
 import SystemUserSearchFailed from '../../exceptions/features/system/SystemUserSearchFailed'
+import adminAuthentication from '../../middleware/authentication'
+import validateRequest from '../helpers/validators';
 
 const router = Router()
 
 router.post('/',
+  adminAuthentication,
   [ body('name').isLength({min: 3}) ],
   async (req: Request, res: Response, next: NextFunction) => {
-
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
-
+  validateRequest(req, res)
   try {
     const user = await createUser(req.body.name)
     res.status(201).json(user)
@@ -25,7 +23,10 @@ router.post('/',
   }
 })
 
-router.post('/verify', async (req: Request, res: Response, next: NextFunction) => {
+router.post('/verify',
+  [ body('name').isLength({min: 3}), body('token').isUUID() ],
+  async (req: Request, res: Response, next: NextFunction) => {
+  validateRequest(req, res)  
   try {
     const token = await authenticate({
       name: req.body.name,
@@ -37,7 +38,9 @@ router.post('/verify', async (req: Request, res: Response, next: NextFunction) =
   }
 })
 
-router.delete('/:userName', async (req: Request, res: Response, next: NextFunction) => {
+router.delete('/:userName',
+  adminAuthentication, 
+  async (req: Request, res: Response, next: NextFunction) => {
   try {
     await removeUser(req.params.userName)
     res.json({
@@ -48,7 +51,9 @@ router.delete('/:userName', async (req: Request, res: Response, next: NextFuncti
   }
 })
 
-router.get('/', async (req: Request, res: Response, next: NextFunction) => {
+router.get('/',
+  adminAuthentication,
+  async (req: Request, res: Response, next: NextFunction) => {
   try {
     let page: any = req.query.page
     let size: any = req.query.size

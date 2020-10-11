@@ -7,7 +7,8 @@ export default function getSequelize(): SequelizeType {
   if (sequelize !== null) return sequelize
   setupConfig()
   sequelize = new Sequelize(process.env.DB_CONNECTION_URL, {
-    dialect: 'mysql'
+    dialect: 'mysql',
+    logging: false
   })
   return sequelize
 }

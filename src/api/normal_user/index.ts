@@ -3,17 +3,14 @@ import { body, validationResult } from 'express-validator'
 import createUser from '../../features/regular/create_user'
 import { passwordCheck, tokenCheck } from '../../features/regular/authenticate'
 import { revokeAllToken } from '../../features/regular/token'
+import validateRequest from '../helpers/validators'
 
 const router = Router()
 
 router.post('/',
   [ body('email').isEmail(), body('password').isLength({min: 6})],
   async (req: Request, res: Response, next: NextFunction) => {
-  const errors = validationResult(req)
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() })
-  }
-
+  validateRequest(req, res)
   try {
     const user = await createUser(req.body.email, req.body.password)
     res.status(201).json({
@@ -27,12 +24,7 @@ router.post('/',
 router.post('/login',
   [ body('email').isEmail() ],
   async (req: Request, res: Response, next: NextFunction) => {
-
-  const errors = validationResult(req)
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() })
-  }
-
+  validateRequest(req, res)
   try {
     const token = await passwordCheck(req.body.email, req.body.password)
     res.status(200).json({
@@ -43,8 +35,10 @@ router.post('/login',
   }
 })
 
-router.post('/verify', async (req: Request, res: Response, next: NextFunction) => {
-
+router.post('/verify',
+  [ body('token').isJWT() ],
+  async (req: Request, res: Response, next: NextFunction) => {
+  validateRequest(req, res)
   try {
     const isValid = await tokenCheck(req.body.token)
     res.status(200).json({
@@ -55,8 +49,10 @@ router.post('/verify', async (req: Request, res: Response, next: NextFunction) =
   }
 })
 
-router.post('/logout', async (req: Request, res: Response, next: NextFunction) => {
-
+router.post('/logout',
+  [ body('email').isEmail() ],
+  async (req: Request, res: Response, next: NextFunction) => {
+  validateRequest(req, res)
   try {
     const tokens = await revokeAllToken(req.body.email)
     res.status(200).json({

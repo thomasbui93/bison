@@ -5,6 +5,7 @@ const getStatus = (err: Error): number => {
     case 'SystemUserCreateException':
     case 'SystemUserRemovalException':
     case 'SystemUserSearchFailed':
+    case 'DeactivateUserFailure':
       return 400
     case 'SystemUserAuthenticationFailed':
     case 'NormalUserAuthenticationFailed':

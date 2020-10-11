@@ -15,6 +15,7 @@ const getStatus = (err: Error): number => {
     case 'NormalUserAuthenticationFailed':
     case 'TokenAuthenticationException':
     case 'AdminAuthenticationFailure':
+    case 'ChangePasswordFailure':
       return 401
     default:
       return 500

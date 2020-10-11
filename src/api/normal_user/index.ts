@@ -4,6 +4,7 @@ import createUser from '../../features/regular/create_user'
 import { passwordCheck, tokenCheck } from '../../features/regular/authenticate'
 import { revokeAllToken } from '../../features/regular/token'
 import validateRequest from '../helpers/validators'
+import changePassword from '../../features/regular/change_password'
 
 const router = Router()
 
@@ -58,6 +59,20 @@ router.post('/logout',
     res.status(200).json({
       ok: true,
       tokens
+    })
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.post('/change-password',
+  [ body('email').isEmail(), body('oldPassword').isLength({min: 3}), body('newPassword').isLength({min: 3}) ],
+  async (req: Request, res: Response, next: NextFunction) => {
+  validateRequest(req, res)
+  try {
+    await changePassword(req.body.email, req.body.oldPassword, req.body.newPassword)
+    res.status(200).json({
+      ok: true
     })
   } catch (err) {
     next(err)

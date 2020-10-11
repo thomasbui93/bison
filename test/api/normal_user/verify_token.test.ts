@@ -17,7 +17,6 @@ describe('verify token', () => {
     it('should return ok', async () => {
       const token = await passwordCheck('k@bui.com', '123456')
       const app = setupServer()
-      console.log('Generated token: ', token)
       const res = await request(app)
         .post('/api/normal-user/verify')
         .send({

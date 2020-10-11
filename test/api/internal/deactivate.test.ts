@@ -141,5 +141,20 @@ describe('user_deactivation', () => {
         })
       })
     })
+
+    describe('completely wrong emails', () => {
+      it('should return bad request status', async () => {
+        const app = setupServer()
+        const res = await request(app)
+          .post('/internal/normal-user/bulk/deactivate')
+          .set({
+            secret 
+          })
+          .send({
+            emails: 'a b c'
+          })
+        expect(res.status).toBe(400)
+      })
+    })
   })
 })

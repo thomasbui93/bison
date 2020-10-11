@@ -26,6 +26,7 @@ export async function bulkDeactivate(emails: string) {
         email: emails.split(' ')
       }
     })
+    if (result === 0) throw new DeactivateUserFailure('Users are not found.')
     return result
   } catch (err) {
     throw new DeactivateUserFailure(err.message)

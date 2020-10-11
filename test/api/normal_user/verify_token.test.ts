@@ -34,7 +34,7 @@ describe('verify token', () => {
         .send({
           token: 'xxx'
         })
-      expect(res.status).toEqual(401)
+      expect(res.status).toEqual(400)
     })
   })
 })

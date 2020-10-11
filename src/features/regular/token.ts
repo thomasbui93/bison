@@ -67,7 +67,6 @@ export async function revokeAllToken(email: string) {
       removed: rely
     }
   } catch (err) {
-    console.log(err)
     throw new TokenRevokeFailureException(err.message)
   }
 }

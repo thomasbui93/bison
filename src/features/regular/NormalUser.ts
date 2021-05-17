@@ -4,7 +4,10 @@ import getSequelize from '../../bootstrap/sequelize'
 const NormalUser = getSequelize().define('NormalUser', {
   email: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      isEmail: true
+    }
   },
   password: {
     type: DataTypes.STRING,

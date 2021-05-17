@@ -8,7 +8,10 @@ const SystemUser = getSequelize().define('SystemUser', {
   },
   token: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      isUUID: 4,
+    }
   },
   expiry: {
     type: DataTypes.DATE,

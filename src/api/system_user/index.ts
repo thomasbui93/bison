@@ -6,7 +6,9 @@ import { body } from 'express-validator'
 import getSystemUsers from '../../features/system/find_users'
 import SystemUserSearchFailed from '../../exceptions/features/system/SystemUserSearchFailed'
 import adminAuthentication from '../../middleware/authentication'
-import validateRequest from '../helpers/validators';
+import validateRequest from '../helpers/validators'
+import createAudit from '../../features/audit/create_audit'
+import { LOGGED_IN, SYSTEM_USER } from '../../features/audit/Audit'
 
 const router = Router()
 
@@ -32,6 +34,7 @@ router.post('/verify',
       name: req.body.name,
       token: req.body.token,
     })
+    await createAudit(req.body.name, SYSTEM_USER, req.ip.toString(), LOGGED_IN, true)
     res.json({token})
   } catch (err) {
     next(err)
